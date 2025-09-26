@@ -1,0 +1,28 @@
+{
+  "name": "cs-312-miniproject-2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swBodenhemier/CS-312-MiniProject-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swBodenhemier/CS-312-MiniProject-2/issues"
+  },
+  "description": "",
+  "dependencies": {
+    "axios": "1.12.2",
+    "body-parser": "2.2.0",
+    "ejs": "3.1.10",
+    "express": "5.1.0",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10"
+  }
+}

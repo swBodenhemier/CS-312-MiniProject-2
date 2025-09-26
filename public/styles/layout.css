@@ -1,0 +1,15 @@
+body {
+  width: calc(100vw - 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  padding: 15px;
+  max-width: 1000px;
+  width: calc(100% - 33px);
+  border-width: 1px;
+  border-color: #333;
+  text-align: center;
+}
