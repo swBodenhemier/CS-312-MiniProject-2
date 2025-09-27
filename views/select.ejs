@@ -1,0 +1,23 @@
+<%- include("partials/header.ejs") %>
+
+<html>
+  <body>
+    <div class="content">
+      <h2>Choose a Location:</h2>
+      <% if(locals.coords) {%> <% coords.forEach((location, index) => {%>
+      <div class="weather-container">
+        <h2><%=location.name%></h2>
+        <h3>Latitude: <%= location.lat%>, Longitude: <%= location.lon%></h3>
+        <form action="/select" method="POST">
+          <input
+            class="button"
+            type="submit"
+            value="Select This Location"
+            name="<%= index %>"
+          />
+        </form>
+      </div>
+      <%})%> <% }%>
+    </div>
+  </body>
+</html>

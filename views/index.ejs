@@ -1,5 +1,4 @@
-<%- include("partials/header.ejs") %> <% function toFahrenheit(temp) { return
-(temp - 273.15) * (9 / 5) + 32; }%>
+<%- include("partials/header.ejs") %>
 
 <html>
   <body>
@@ -19,9 +18,10 @@
         </label>
         <input class="button" type="submit" value="Get weather data" />
       </form>
+
+      <%if(locals.weather && locals.location) { %>
       <div class="weather-container">
-        <%if(locals.weather) { %>
-        <h2>Weather:</h2>
+        <h2>Weather for <%= location.name %>:</h2>
         <div class="weather-content">
           <p>
             Weather Type: <%= weather.weather[0].main %> <br />Weather
@@ -37,10 +37,8 @@
             Temperature High: <%= toF(weather.main.temp_max).toFixed(2) %>
           </p>
         </div>
-        <% } else { %>
-        <p>No Weather Yet</p>
-        <% } %>
       </div>
+      <% } %>
     </div>
   </body>
 </html>

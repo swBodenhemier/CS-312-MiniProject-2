@@ -17,39 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(morgan("dev"));
 
-let address = "S San Francisco St, Flagstaff, AZ 86011";
-let coords = [];
-let weather = {
-  coord: { lon: -111.6529, lat: 35.1845 },
-  weather: [
-    {
-      id: 804,
-      main: "Clouds",
-      description: "overcast clouds",
-      icon: "04d",
-    },
-  ],
-  base: "stations",
-  main: {
-    temp: 288.55,
-    feels_like: 288.39,
-    temp_min: 288.55,
-    temp_max: 288.55,
-    pressure: 1013,
-    humidity: 86,
-    sea_level: 1013,
-    grnd_level: 774,
-  },
-  visibility: 10000,
-  wind: { speed: 4.31, deg: 187, gust: 4.66 },
-  clouds: { all: 92 },
-  dt: 1759007218,
-  sys: { country: "US", sunrise: 1758979110, sunset: 1759022182 },
-  timezone: -25200,
-  id: 5294810,
-  name: "Flagstaff",
-  cod: 200,
-};
+//S San Francisco St, Flagstaff, AZ 86011
+let coords = null;
+let weather = null;
+let location = null;
 
 app.get("/", (req, res) => {
   render(res);
@@ -57,19 +28,21 @@ app.get("/", (req, res) => {
 
 app.post("/fetch", async (req, res) => {
   try {
-    //await getLonLat(req.body.address);
+    await getLonLat(req.body.address);
+    res.render("select.ejs", { coords: coords });
   } catch (err) {
     console.error(err);
     res.redirect("/");
   }
+});
 
+app.post("/select", async (req, res) => {
+  location = coords[Object.keys(req.body)[0]];
   try {
-    //await getWeather(coords[0]);
+    await getWeather(location);
   } catch (err) {
     console.error(err);
-    res.redirect("/");
   }
-
   res.redirect("/");
 });
 
@@ -98,10 +71,10 @@ async function getLonLat(address) {
   }
 }
 
-async function getWeather(coords) {
-  if (coords && coords.lat && coords.lon) {
+async function getWeather(location) {
+  if (location && location.lat && location.lon) {
     const result = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=${openWeatherKey}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${openWeatherKey}`
     );
     console.log(result.data);
     weather = result.data;
@@ -116,7 +89,7 @@ function toFahrenheit(temp) {
 
 function render(res) {
   res.render("index.ejs", {
-    coords: coords,
+    location: location,
     weather: weather,
     toF: toFahrenheit,
     errors: null,
