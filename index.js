@@ -1,21 +1,15 @@
 import express from "express";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
-import morgan from "morgan";
 import axios from "axios";
 
 // note: to run you must get your own api keys and export them from secrets.js file
 import { geocodeKey, openWeatherKey } from "./secrets.js";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(morgan("dev"));
 
 //S San Francisco St, Flagstaff, AZ 86011
 let coords = null;
@@ -55,7 +49,6 @@ async function getLonLat(address) {
     const result = await axios.get(
       `https://geocode.maps.co/search?q=${address}&api_key=${geocodeKey}`
     );
-    console.log(result.data);
     coords = result.data.map((location) => {
       return {
         lat: location.lat,
@@ -76,7 +69,6 @@ async function getWeather(location) {
     const result = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${openWeatherKey}`
     );
-    console.log(result.data);
     weather = result.data;
   } else {
     throw "No coords";
