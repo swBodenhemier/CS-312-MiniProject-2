@@ -10,3 +10,49 @@ body {
   border-color: #aaa;
   border-radius: 10px;
 }
+
+.weather-container {
+  background-color: #eee;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #aaa;
+  border-radius: 10px;
+}
+
+.button {
+  padding: 8px;
+  width: fit-content;
+  align-self: center;
+  background-color: rgb(117, 173, 243);
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+}
+.button:hover {
+  outline-width: 2px;
+  outline-style: solid;
+  border-color: rgb(90, 158, 241);
+  background-color: rgb(90, 158, 241);
+  outline-color: rgb(90, 158, 241);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.small-text {
+  all: unset;
+  min-width: fit-content;
+  text-align: left;
+  width: 300px;
+  padding: 4px;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: rgb(117, 173, 243);
+  cursor: text;
+}
+.small-text:focus {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: rgb(90, 158, 241);
+  border-color: rgb(90, 158, 241);
+}

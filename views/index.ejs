@@ -1,6 +1,46 @@
-<%- include("partials/header.ejs") %>
+<%- include("partials/header.ejs") %> <% function toFahrenheit(temp) { return
+(temp - 273.15) * (9 / 5) + 32; }%>
+
 <html>
   <body>
-
+    <div class="content">
+      <h1>Weather by Address</h1>
+      <form action="/fetch" method="POST">
+        <label>
+          Enter a valid address:
+          <input
+            id="address-selector"
+            name="address"
+            type="text"
+            class="small-text"
+            required
+            placeholder="1234 N Broadway Rd, city, state zip"
+          />
+        </label>
+        <input class="button" type="submit" value="Get weather data" />
+      </form>
+      <div class="weather-container">
+        <%if(locals.weather) { %>
+        <h2>Weather:</h2>
+        <div class="weather-content">
+          <p>
+            Weather Type: <%= weather.weather[0].main %> <br />Weather
+            Description: <%= weather.weather[0].description %> <br />Humidity:
+            <%= weather.main.humidity %> <br />
+            Wind Speed (mph): <%= weather.wind.speed %>
+          </p>
+          <p>
+            Current Temperature (Fahrenheit): <%=
+            toF(weather.main.temp).toFixed(2) %> <br />
+            Feels Like: <%= toF(weather.main.feels_like).toFixed(2) %> <br />
+            Temperature Low: <%= toF(weather.main.temp_min).toFixed(2) %> <br />
+            Temperature High: <%= toF(weather.main.temp_max).toFixed(2) %>
+          </p>
+        </div>
+        <% } else { %>
+        <p>No Weather Yet</p>
+        <% } %>
+      </div>
+    </div>
   </body>
 </html>
