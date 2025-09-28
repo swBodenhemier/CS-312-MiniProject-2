@@ -4,7 +4,7 @@ This site provides weather information for a specific street address.
 
 ## APIs
 
-https://goecode.maps.co Translate between street address and longitude latitude.
+https://geocode.maps.co Translate between street address and longitude latitude.
 
 https://api.openweathermap.org Get weather information at specific longitude latitude,
 

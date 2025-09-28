@@ -11,21 +11,23 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-//S San Francisco St, Flagstaff, AZ 86011
 let coords = null;
 let weather = null;
 let location = null;
+let error = null;
 
 app.get("/", (req, res) => {
-  render(res);
+  render(res, error);
 });
 
 app.post("/fetch", async (req, res) => {
   try {
     await getLonLat(req.body.address);
     res.render("select.ejs", { coords: coords });
+    error = null;
   } catch (err) {
     console.error(err);
+    error = err;
     res.redirect("/");
   }
 });
@@ -34,8 +36,10 @@ app.post("/select", async (req, res) => {
   location = coords[Object.keys(req.body)[0]];
   try {
     await getWeather(location);
+    error = null;
   } catch (err) {
     console.error(err);
+    error = err;
   }
   res.redirect("/");
 });
@@ -79,11 +83,11 @@ function toFahrenheit(temp) {
   return (temp - 273.15) * (9 / 5) + 32;
 }
 
-function render(res) {
+function render(res, error) {
   res.render("index.ejs", {
     location: location,
     weather: weather,
     toF: toFahrenheit,
-    errors: null,
+    error: error,
   });
 }

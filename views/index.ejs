@@ -15,6 +15,7 @@
             required
             placeholder="1234 N Broadway Rd, city, state zip"
           />
+          <%= locals.error && error ? error : "" %>
         </label>
         <input class="button" type="submit" value="Get weather data" />
       </form>
